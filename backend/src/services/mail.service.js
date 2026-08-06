@@ -8,6 +8,8 @@ console.log("Email function one" + process.env.GOOGLE_USER);
 const transporter = nodemailer.createTransport({
   service: "gmail",
   family: 4,
+  connectionTimeout: 5000, // 5 seconds timeout
+  socketTimeout: 5000,     // 5 seconds timeout
   auth: {
     type: "OAuth2",
     user: process.env.GOOGLE_USER,
@@ -16,6 +18,8 @@ const transporter = nodemailer.createTransport({
     refreshToken: process.env.GOOGLE_REFRESH_TOKEN,
   },
 });
+
+console.log("[Mail] Initiating transporter verification...");
 
 transporter
   .verify()
