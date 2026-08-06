@@ -7,15 +7,13 @@ console.log("Email function one" + process.env.GOOGLE_USER);
 
 const transporter = nodemailer.createTransport({
   service: "gmail",
+  family: 4,
   auth: {
     type: "OAuth2",
     user: process.env.GOOGLE_USER,
     clientId: process.env.GOOGLE_CLIENT_ID,
     clientSecret: process.env.GOOGLE_CLIENT_SECRET,
     refreshToken: process.env.GOOGLE_REFRESH_TOKEN,
-    accessToken: process.env.GOOGLE_ACCESS_TOKEN
-    // Do NOT pass accessToken here — nodemailer will fetch a fresh one
-    // using the refreshToken, so it never expires.
   },
 });
 
