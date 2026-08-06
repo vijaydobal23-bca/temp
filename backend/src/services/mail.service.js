@@ -3,6 +3,7 @@ import dns from "dns";
 
 // Force IPv4 resolution — prevents IPv6-related SMTP failures on Render
 dns.setDefaultResultOrder("ipv4first");
+console.log("Email function one"+process.env.GOOGLE_USER)
 
 const transporter = nodemailer.createTransport({
   service: "gmail",
@@ -25,6 +26,7 @@ transporter
   );
 
 export async function sendEmail({ to, subject, html, text }) {
+  console.log("Email function")
   const mailOptions = {
     from: `"Altco" <${process.env.GOOGLE_USER}>`,
     to,
