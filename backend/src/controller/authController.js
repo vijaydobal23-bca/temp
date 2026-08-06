@@ -74,7 +74,7 @@ export async function register(req, res) {
 
     const verifyUrl = `${process.env.BACKEND_URL}/api/auth/verify-email?token=${emailVerificationToken}`;
 
-    console.log("Now calling nodemailer")
+    console.log("Now calling")
     // Send verification email — non-blocking: SMTP failure won't block registration
     sendEmail({
       to: email,
