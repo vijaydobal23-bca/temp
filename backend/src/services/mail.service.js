@@ -6,7 +6,9 @@ dns.setDefaultResultOrder("ipv4first");
 console.log("Email function one" + process.env.GOOGLE_USER);
 
 const transporter = nodemailer.createTransport({
-  service: "gmail",
+  host: "smtp.gmail.com",
+  port: 465,
+  secure: true,
   family: 4,
   connectionTimeout: 5000, // 5 seconds timeout
   socketTimeout: 5000,     // 5 seconds timeout
