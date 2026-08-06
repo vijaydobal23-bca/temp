@@ -22,6 +22,12 @@ export async function sendEmail({ to, subject, html, text }) {
     },
   });
 
+  transporter.verify().then(() => {
+    console.log("Transporter is ready");
+  }).catch((err) => {
+    console.log("Email transporter verification failed", err);
+  });
+
   const mailOptions = {
     from: `"Altco" <${process.env.GOOGLE_USER}>`,
     to,
