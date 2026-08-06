@@ -3,9 +3,10 @@ import bcrypt from "bcryptjs";
 
 const userSchema = new mongoose.Schema(
   {
-    name: {
+    username: {
       type: String,
-      required: [true, "Name is required"],
+      required: [true, "Username is required"],
+      unique: true,
       trim: true,
     },
 
@@ -31,19 +32,30 @@ const userSchema = new mongoose.Schema(
       default: "buyer",
     },
 
+    verified: {
+      type: Boolean,
+      default: false,
+    },
 
     // Seller-specific fields (only populated when role === "seller")
     sellerInfo: {
       storeName: {
         type: String,
         trim: true,
-      }
-    } 
+      },
+    },
   },
   {
     timestamps: true, // adds createdAt and updatedAt automatically
   }
 );
+
+// ─── Hash password before saving ─────────────────────────────────────────────
+// Mongoose 7+: async middleware must NOT call next() — just return/throw
+userSchema.pre("save", async function () {
+  if (!this.isModified("password")) return;
+  this.password = await bcrypt.hash(this.password, 12);
+});
 
 const User = mongoose.model("User", userSchema);
 

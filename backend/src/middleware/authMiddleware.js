@@ -51,10 +51,22 @@ export const identifyUser = async (req, res, next) => {
 };
 
 /**
- * Middleware: restrict access by role(s).
- * Usage: restrictTo("admin") or restrictTo("admin", "seller")
+ * Middleware: ensure the authenticated user has verified their email.
+ * Must be used AFTER identifyUser.
  */
+export const isVerified = (req, res, next) => {
+  if (!req.user.verified) {
+    return res.status(403).json({
+      success: false,
+      message: "Please verify your email before accessing this resource.",
+    });
+  }
+  next();
+};
 
+/**
+ * Middleware: restrict access to seller role only.
+ */
 export const identifySeller = async (req, res, next) => {
   try {
     let token;

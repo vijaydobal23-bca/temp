@@ -5,7 +5,7 @@ import authRoutes from "./routes/auth.routes.js";
 import productRoutes from "./routes/product.routes.js";
 import orderRoutes from "./routes/order.routes.js";
 import cartRoutes from "./routes/cart.routes.js";
-import notificationRoutes from "./routes/notification.routes.js";
+
 import morgan from "morgan";
 
 
@@ -16,7 +16,7 @@ app.use(morgan("dev"));
 // ─── Core Middleware ──────────────────────────────────────────────────────────
 app.use(
   cors({
-    origin: ["http://localhost:5173", "https://altco-2.onrender.com", "https://altco-xzbl.vercel.app"],
+    origin: ["http://localhost:5173"],
     credentials: true
   }),
 );
@@ -29,7 +29,7 @@ app.use("/api/auth", authRoutes);
 app.use("/api/products", productRoutes);
 app.use("/api/orders", orderRoutes);
 app.use("/api/cart", cartRoutes);
-app.use("/api/notifications", notificationRoutes);
+
 
 
 app.get("/api", (req, res) => {

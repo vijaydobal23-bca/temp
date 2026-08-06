@@ -5,21 +5,13 @@ import dns from "dns";
 dns.setDefaultResultOrder("ipv4first");
 
 const transporter = nodemailer.createTransport({
-  service: "gmail",
-  host: "smtp.gmail.com",
-  port: 587,
-  secure: false,
-
+ service: 'gmail',
   auth: {
-    user: process.env.GOOGLE_USER,
-    pass: process.env.GMAIL_APP_PASS,
-  },
-
-  logger: true,
-  debug: true,
-
-  tls: {
-    rejectUnauthorized: false,
+    type: 'OAuth2',
+    user: process.env.EMAIL_USER,
+    clientId: process.env.CLIENT_ID,
+    clientSecret: process.env.CLIENT_SECRET,
+    refreshToken: process.env.REFRESH_TOKEN,
   },
 });
 
